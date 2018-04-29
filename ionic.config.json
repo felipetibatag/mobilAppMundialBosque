@@ -1,0 +1,8 @@
+{
+  "name": "mobilBosque",
+  "app_id": "3f372b61",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
