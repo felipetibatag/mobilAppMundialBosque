@@ -4,27 +4,47 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+//Paginas
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import {ClasificadosPage} from '../pages/clasificados/clasificados';
+import {EstadisticasPage} from '../pages/estadisticas/estadisticas';
+import {GanadoresPage} from '../pages/ganadores/ganadores';
+import {TabsPage} from '../pages/tabs/tabs';
+import { WbsProvider } from '../providers/wbs/wbs';
+
+import {HttpClientModule} from "@angular/common/http";
+import {HttpModule} from "@angular/http";
+//Pipes
+import {ImagenPipe} from '../pipes/imagen/imagen';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    ClasificadosPage,
+    EstadisticasPage,
+    GanadoresPage,
+    TabsPage,
+    ImagenPipe
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    ClasificadosPage,
+    EstadisticasPage,
+    GanadoresPage,
+    TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    WbsProvider
   ]
 })
 export class AppModule {}

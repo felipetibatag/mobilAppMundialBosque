@@ -1,0 +1,26 @@
+<!--
+  Generated template for the ClasificadosPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Clasificados</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-item-group *ngFor="let equipo of equipos;let i=index">
+      <ion-item-divider color="primary" *ngIf="i%4==0 || i==0">
+        Grupo {{equipo.grupo}}
+      </ion-item-divider>
+      <ion-item >{{equipo.nombre}}
+        <ion-avatar item-start>
+          <img [src]="equipo.cod_pais|imagen">
+        </ion-avatar>
+      </ion-item>
+    </ion-item-group>
+</ion-content>
