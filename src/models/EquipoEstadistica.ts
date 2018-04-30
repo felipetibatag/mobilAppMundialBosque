@@ -9,4 +9,5 @@ export class EquipoEstadistica{
   gf:number;
   gc:number;
   rendimiento:number;
+  constructor(){}
 }

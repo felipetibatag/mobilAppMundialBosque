@@ -16,6 +16,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {HttpModule} from "@angular/http";
 //Pipes
 import {ImagenPipe} from '../pipes/imagen/imagen';
+import { HistoricoEquipoPage } from '../pages/historico-equipo/historico-equipo';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {ImagenPipe} from '../pipes/imagen/imagen';
     EstadisticasPage,
     GanadoresPage,
     TabsPage,
-    ImagenPipe
+    ImagenPipe,
+    HistoricoEquipoPage
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ import {ImagenPipe} from '../pipes/imagen/imagen';
     ClasificadosPage,
     EstadisticasPage,
     GanadoresPage,
-    TabsPage
+    TabsPage,
+    HistoricoEquipoPage
   ],
   providers: [
     StatusBar,

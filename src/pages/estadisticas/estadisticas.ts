@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { WbsProvider } from '../../providers/wbs/wbs';
 import { EquipoEstadistica } from '../../models/EquipoEstadistica';
+import { HistoricoEquipoPage } from '../historico-equipo/historico-equipo';
 
 @Component({
   selector: 'page-estadisticas',
@@ -17,13 +18,16 @@ export class EstadisticasPage {
     this._wbsProvider.getEstadisticasGenerales().subscribe(
       data=>{
         this.equiposE=this.equiposE.concat(data);
-        console.log(this.equiposE);
       },
       error=>{
         console.log(error);
       }
     );
 
+  }
+
+  historicoEquipo(equipo:EquipoEstadistica){
+    this.navCtrl.push(HistoricoEquipoPage,{'equipo':equipo});
   }
 
 }

@@ -13,13 +13,31 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col>Equipo</ion-col>
-    </ion-row>
-    <ion-row *ngFor="let equipo  of equiposE">
-      {{equipo.nombre}}
-    </ion-row>
-  </ion-grid>
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-5>Equipo</ion-col>
+            <ion-col col-1>Gc</ion-col>
+            <ion-col col-1>Gf</ion-col>
+            <ion-col col-1>Pe</ion-col>
+            <ion-col col-1>Pg</ion-col>
+            <ion-col col-1>Pj</ion-col>
+            <ion-col col-1>Pp</ion-col>
+          </ion-row>
+    <ion-list no-lines *ngFor="let equipo of equiposE">
+              <ion-row (click)="historicoEquipo(equipo)">
+                <ion-col col-5>{{ equipo.nombre }}</ion-col>
+                <ion-col col-1 text-center>{{equipo.gc}}</ion-col>
+                <ion-col col-1 text-center>{{equipo.gf}}</ion-col>
+                <ion-col col-1 text-center>{{equipo.pe}}</ion-col>
+                <ion-col col-1 text-center>{{equipo.pg}}</ion-col>
+                <ion-col col-1 text-center>{{equipo.pj}}</ion-col>
+                <ion-col col-1 text-center>{{equipo.pp}}</ion-col>
+                <ion-col><ion-icon name="eye"></ion-icon></ion-col>
+              </ion-row>
+      </ion-list>
+    </ion-grid>
 </ion-content>
+
+
+
