@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { WbsProvider } from '../../providers/wbs/wbs';
 import { Equipo } from '../../models/Equipo';
+import { ERR_PLUGIN_NOT_INSTALLED } from '@ionic-native/core';
 
 
 
@@ -11,10 +12,22 @@ import { Equipo } from '../../models/Equipo';
 })
 export class ClasificadosPage {
 
+
+
   equipos:Equipo[]=[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public _wbsProvider: WbsProvider) {
-    this.cargarEquiposPorGrupo();
+  constructor(public navCtrl: NavController, public navParams: NavParams, public _wbsProvider: WbsProvider,
+              private alertCtrl:AlertController) {
   }
+
+  ionViewDidLoad(){
+    this.cargarEquiposPorGrupo();
+    console.log("1");
+  }
+
+  ionViewWillEnter(){
+    this.alerta("E");
+  }
+
 
   cargarEquiposPorGrupo(){
     this._wbsProvider.getEquiposPorGrupo().subscribe(
@@ -23,9 +36,19 @@ export class ClasificadosPage {
       },
       error=>{
         console.log(error);
+        this.alerta(error);
       }
     );
 
+  }
+
+  alerta(error:any){
+    let mensajeAlerta=this.alertCtrl.create({
+      title:'Se presento un error',
+      subTitle:error.message + ", Verifique su conexión",
+      buttons:['ok']
+    });
+    mensajeAlerta.present();
   }
 
 }
