@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { WbsProvider } from '../../providers/wbs/wbs';
 import { EquipoEstadistica } from '../../models/EquipoEstadistica';
 import { HistoricoEquipoPage } from '../historico-equipo/historico-equipo';
@@ -16,18 +16,52 @@ export class EstadisticasPage {
 
   equiposE:EquipoEstadistica[]=[];
   constructor(public navCtrl: NavController,public navParams: NavParams,public _wbsProvider:WbsProvider,
-    public ctrlVwr:ViewController
+    public ctrlVwr:ViewController, private loadCtrl:LoadingController
   ){
   }
 
   ionViewDidLoad(){
-    this.cargarEstadisticasGenerales();
+    let ventanaCargando=this.loadCtrl.create({
+      content:'Cargando Estadísticas'
+    });
+
+    ventanaCargando.present().then(()=>{
+      this.equiposE=[];
+    this._wbsProvider.getEstadisticasGenerales().subscribe(
+      data=>{
+        this.equiposE=this.equiposE.concat(data);
+        this.fallo=false;
+      },
+      error=>{
+        this.fallo=true;
+        this.msgFallo=error.message;
+      }
+    );
+      ventanaCargando.dismiss();
+    })
+
   }
   ionViewDidEnter(){
     console.log("Refrescando con did");
     if(this.fallo){
-      console.log("Se cayo la conexión")
-      this.cargarEstadisticasGenerales();
+      let ventanaCargando=this.loadCtrl.create({
+        content:'Cargando Estadísticas'
+      });
+
+      ventanaCargando.present().then(()=>{
+        this.equiposE=[];
+      this._wbsProvider.getEstadisticasGenerales().subscribe(
+        data=>{
+          this.equiposE=this.equiposE.concat(data);
+          this.fallo=false;
+        },
+        error=>{
+          this.fallo=true;
+          this.msgFallo=error.message;
+        }
+      );
+        ventanaCargando.dismiss();
+      })
     }
 
   }
@@ -37,6 +71,7 @@ export class EstadisticasPage {
   }
 
   cargarEstadisticasGenerales(){
+    this.equiposE=[];
     this._wbsProvider.getEstadisticasGenerales().subscribe(
       data=>{
         this.equiposE=this.equiposE.concat(data);

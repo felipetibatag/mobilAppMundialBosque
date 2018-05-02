@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController} from 'ionic-angular';
+import { NavController, NavParams, ViewController,LoadingController} from 'ionic-angular';
 import { WbsProvider } from '../../providers/wbs/wbs';
 import { Equipo } from '../../models/Equipo';
-import { ERR_PLUGIN_NOT_INSTALLED } from '@ionic-native/core';
 
 
 
@@ -18,18 +17,55 @@ export class ClasificadosPage {
 
   equipos:Equipo[]=[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public _wbsProvider: WbsProvider,
-              public ctrlVwr:ViewController
+              public ctrlVwr:ViewController, private loadCtrl:LoadingController
   ) {
+
+  }
+  ionViewDidLoad(){
+    let ventanaCarga=this.loadCtrl.create({
+      content:'Cargando Clasificados ...'
+    });
+
+    ventanaCarga.present().then(()=>{
+      this.equipos=[];
+    this._wbsProvider.getEquiposPorGrupo().subscribe(
+      data=>{
+        this.equipos=this.equipos.concat(data);
+        this.fallo=false;
+      },
+      error=>{
+        console.log(error);
+        this.fallo=true;
+        this.msgFallo=error.message;
+      }
+    );
+      ventanaCarga.dismiss();
+    });
   }
 
-  ionViewDidLoad(){
-    this.cargarEquiposPorGrupo();
-  }
+
   ionViewDidEnter(){
     console.log("Refrescando con did");
     if(this.fallo){
-      console.log("Se cayo la conexión")
-      this.cargarEquiposPorGrupo();
+      let ventanaCarga=this.loadCtrl.create({
+        content:'Cargando Clasificados ...'
+      });
+
+      ventanaCarga.present().then(()=>{
+        this.equipos=[];
+      this._wbsProvider.getEquiposPorGrupo().subscribe(
+        data=>{
+          this.equipos=this.equipos.concat(data);
+          this.fallo=false;
+        },
+        error=>{
+          console.log(error);
+          this.fallo=true;
+          this.msgFallo=error.message;
+        }
+      );
+        ventanaCarga.dismiss();
+      });
     }
 
   }
@@ -39,6 +75,7 @@ export class ClasificadosPage {
   }
 
   cargarEquiposPorGrupo(){
+    this.equipos=[];
     this._wbsProvider.getEquiposPorGrupo().subscribe(
       data=>{
         this.equipos=this.equipos.concat(data);
