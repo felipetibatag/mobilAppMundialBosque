@@ -8,18 +8,31 @@
 </ion-header>
 
 
-<ion-content>
-  <ion-list>
+<ion-content (tap)="reintentarConexion($event)">
+
+    <ion-card *ngIf="fallo">
+        <img src="../../assets/imgs/errorConexion.png" name="sad"/>
+        <ion-card-content>
+          <ion-card-title class="card-title">
+            ¡Error de conexión!
+            </ion-card-title>
+          <p> {{msgFallo}}</p>
+        </ion-card-content>
+        <p class="consejo">Toque la pantalla para reintar la conexión</p>
+      </ion-card>
+
+
+
+  <ion-list *ngIf="!fallo">
     <ion-item>
       <h1>{{pais}}</h1>
     <ion-thumbnail item-end>
         <img [src]="cod_pais|imagen">
       </ion-thumbnail>
     </ion-item>
-
   </ion-list>
 
-    <ion-card>
+    <ion-card *ngIf="!fallo">
         <ion-card-content>
           <p>Historial completo de partidos del 2016 al 2017</p>
           <ion-item-divider></ion-item-divider>

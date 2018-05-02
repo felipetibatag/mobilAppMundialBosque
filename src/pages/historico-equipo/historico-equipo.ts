@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ViewController } from 'ionic-angular';
 import { WbsProvider } from '../../providers/wbs/wbs';
 import { EquipoEstadistica } from '../../models/EquipoEstadistica';
 import { HistoricoEquipo } from '../../models/HistoricoEquipo';
@@ -11,29 +11,57 @@ import { HistoricoEquipo } from '../../models/HistoricoEquipo';
 })
 export class HistoricoEquipoPage {
 
+  public fallo:boolean;
+  public msgFallo:string;
+
   equipo:EquipoEstadistica;
   equipos:HistoricoEquipo[]=[];
   cod_pais:string;
   pais:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public _wbsProvider:WbsProvider) {
-    this.cargarHistoricoEquipo();
+  constructor(public navCtrl: NavController, public navParams: NavParams, public _wbsProvider:WbsProvider,
+              public loading:LoadingController,private ctrlVwr:ViewController) {
     this.cod_pais=this.navParams.get('equipo').cod_pais;
     this.pais=this.navParams.get('equipo').nombre;
   }
 
-  cargarHistoricoEquipo(){
+  ionViewDidLoad(){
+    let ventanaCargando=this.loading.create({
+      content:"Cargando historico.."
+    });
+    ventanaCargando.present().then(()=>{
+      this._wbsProvider.getHistorialEquipo(this.navParams.get('equipo')).subscribe(
+        data=>{
+          this.equipos=this.equipos.concat(data);
+          this.fallo=false;
+        },
+        error=>{
+          console.log(error);
+          this.fallo=true;
+        }
+      );
+      ventanaCargando.dismiss();
+    });
+  }
+
+  cargarHistoricoEquipo():boolean{
     console.log("Equipo a enviar " + this.navParams.get('equipo'));
     this._wbsProvider.getHistorialEquipo(this.navParams.get('equipo')).subscribe(
       data=>{
         this.equipos=this.equipos.concat(data);
+        return true;
       },
       error=>{
         console.log(error);
+        return false;
       }
     );
+    return false;
   }
 
+  reintentarConexion(e){
+    this.ctrlVwr._didEnter();
+  }
 
 
 }

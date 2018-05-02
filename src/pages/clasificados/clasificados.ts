@@ -28,7 +28,7 @@ export class ClasificadosPage {
   ionViewDidEnter(){
     console.log("Refrescando con did");
     if(this.fallo){
-      console.log("Se cayo la conexió")
+      console.log("Se cayo la conexión")
       this.cargarEquiposPorGrupo();
     }
 
