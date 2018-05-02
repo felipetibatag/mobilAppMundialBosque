@@ -10,17 +10,28 @@ import { HistoricoEquipoPage } from '../historico-equipo/historico-equipo';
 })
 export class EstadisticasPage {
 
+
+  public fallo:boolean;
+  public msgFallo:string;
+
   equiposE:EquipoEstadistica[]=[];
   constructor(public navCtrl: NavController,public navParams: NavParams,public _wbsProvider:WbsProvider){
+  }
+
+  ionViewDidLoad(){
     this.cargarEstadisticasGenerales();
   }
+
+
   cargarEstadisticasGenerales(){
     this._wbsProvider.getEstadisticasGenerales().subscribe(
       data=>{
         this.equiposE=this.equiposE.concat(data);
+        this.fallo=false;
       },
       error=>{
-        console.log(error);
+        this.fallo=true;
+        this.msgFallo=error.message;
       }
     );
 

@@ -12,7 +12,19 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content (tap)="reintentarConexion($event)">
+
+
+    <ion-card *ngIf="fallo">
+        <img src="../../assets/imgs/errorConexion.png" name="sad"/>
+        <ion-card-content>
+          <ion-card-title class="card-title">
+            ¡Error de conexión!
+            </ion-card-title>
+          <p> {{msgFallo}}</p>
+        </ion-card-content>
+      </ion-card>
+
   <ion-item-group *ngFor="let equipo of equipos;let i=index">
       <ion-item-divider color="primary" *ngIf="i%4==0 || i==0">
         Grupo {{equipo.grupo}}

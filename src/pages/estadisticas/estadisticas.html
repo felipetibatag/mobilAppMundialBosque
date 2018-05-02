@@ -14,7 +14,17 @@
 
 
 <ion-content>
-    <ion-grid>
+    <ion-card *ngIf="fallo">
+        <img src="../../assets/imgs/errorConexion.png" name="sad"/>
+        <ion-card-content>
+          <ion-card-title class="card-title">
+            ¡Error de conexión!
+            </ion-card-title>
+          <p> {{msgFallo}}</p>
+        </ion-card-content>
+      </ion-card>
+
+    <ion-grid *ngIf="!fallo">
         <ion-row>
             <ion-col col-5>Equipo</ion-col>
             <ion-col col-1>Gc</ion-col>
