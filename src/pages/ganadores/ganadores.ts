@@ -12,7 +12,7 @@ export class GanadoresPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GanadoresPage');
+    //console.log('ionViewDidLoad GanadoresPage');
   }
 
 }

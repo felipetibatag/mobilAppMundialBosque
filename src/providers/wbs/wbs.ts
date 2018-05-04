@@ -10,22 +10,24 @@ import { EquipoEstadistica } from '../../models/EquipoEstadistica';
 export class WbsProvider {
 
   constructor(public http: HttpClient) {
-    console.log('Hello WbsProvider Provider');
+    //console.log('Hello WbsProvider Provider');
   }
 
   getEquiposPorGrupo():Observable<any>{
     let url=URL_SERVICES + "/equipoPorGrupo";
+    console.log("ir a: " + url);
     return this.http.post(url,0);
   }
 
   getEstadisticasGenerales():Observable<any>{
     let url=URL_SERVICES +"/estadisticasGenerales";
+    console.log("ir a: " + url);
     return this.http.post(url,0);
   }
 
   getHistorialEquipo(equipo:EquipoEstadistica):Observable<any>{
     let url=URL_SERVICES +"/historicoPartidosPorEquipo?id="+equipo.id;
-    console.log("Pediria : " + url );
+    console.log("ir a: " + url);
     return this.http.post(url,0);
   }
 
