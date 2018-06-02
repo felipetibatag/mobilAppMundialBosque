@@ -30,6 +30,11 @@ export class WbsProvider {
   }
 
 
+  getGanadores():Observable<any>{
+    let url=URL_SERVICES +"/ganadores";
+    return this.http.post(url,0);
+  }
+
 
 
 }
