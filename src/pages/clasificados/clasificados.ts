@@ -45,7 +45,7 @@ export class ClasificadosPage {
 
 
   ionViewDidEnter(){
-    console.log("Refrescando con did");
+
     if(this.fallo){
       let ventanaCarga=this.loadCtrl.create({
         content:'Cargando Clasificados ...'
@@ -74,21 +74,7 @@ export class ClasificadosPage {
     this.ctrlVwr._didEnter();
   }
 
-  cargarEquiposPorGrupo(){
-    this.equipos=[];
-    this._wbsProvider.getEquiposPorGrupo().subscribe(
-      data=>{
-        this.equipos=this.equipos.concat(data);
-        this.fallo=false;
-      },
-      error=>{
-        console.log(error);
-        this.fallo=true;
-        this.msgFallo=error.message;
-      }
-    );
 
-  }
 
 
 

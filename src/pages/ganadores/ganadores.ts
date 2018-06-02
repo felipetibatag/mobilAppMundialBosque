@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { NavController, NavParams,ViewController, LoadingController } from 'ionic-angular';
 import { WbsProvider } from '../../providers/wbs/wbs';
+=======
+import { NavController, NavParams } from 'ionic-angular';
+>>>>>>> rama_TabGanadores
 
 
 @Component({
@@ -62,6 +66,11 @@ export class GanadoresPage {
       })
     }
 
+<<<<<<< HEAD
+=======
+  ionViewDidLoad() {
+    //console.log('ionViewDidLoad GanadoresPage');
+>>>>>>> rama_TabGanadores
   }
 
   reintentarConexion(e){

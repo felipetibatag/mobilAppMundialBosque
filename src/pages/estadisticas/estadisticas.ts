@@ -42,7 +42,7 @@ export class EstadisticasPage {
 
   }
   ionViewDidEnter(){
-    console.log("Refrescando con did");
+
     if(this.fallo){
       let ventanaCargando=this.loadCtrl.create({
         content:'Cargando Estadísticas'
@@ -70,20 +70,7 @@ export class EstadisticasPage {
     this.ctrlVwr._didEnter();
   }
 
-  cargarEstadisticasGenerales(){
-    this.equiposE=[];
-    this._wbsProvider.getEstadisticasGenerales().subscribe(
-      data=>{
-        this.equiposE=this.equiposE.concat(data);
-        this.fallo=false;
-      },
-      error=>{
-        this.fallo=true;
-        this.msgFallo=error.message;
-      }
-    );
 
-  }
 
   historicoEquipo(equipo:EquipoEstadistica){
     this.navCtrl.push(HistoricoEquipoPage,{'equipo':equipo});

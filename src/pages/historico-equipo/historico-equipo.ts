@@ -44,20 +44,6 @@ export class HistoricoEquipoPage {
     });
   }
 
-  cargarHistoricoEquipo():boolean{
-    console.log("Equipo a enviar " + this.navParams.get('equipo'));
-    this._wbsProvider.getHistorialEquipo(this.navParams.get('equipo')).subscribe(
-      data=>{
-        this.equipos=this.equipos.concat(data);
-        return true;
-      },
-      error=>{
-        console.log(error);
-        return false;
-      }
-    );
-    return false;
-  }
 
   reintentarConexion(e){
     this.ctrlVwr._didEnter();
